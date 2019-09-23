@@ -1,4 +1,4 @@
-from worker.manager import WorkManager
+from manager import WorkManager
 from collector.collector import load_collector
 
 

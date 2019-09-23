@@ -2,7 +2,7 @@ from time import sleep
 from time import time
 from tqdm import tqdm
 
-from .worker import Worker
+from worker.worker import Worker
 
 
 class WorkManager:
