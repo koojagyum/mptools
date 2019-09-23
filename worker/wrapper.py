@@ -35,7 +35,6 @@ def loop(w):
 
     w.init()
     while True:
-        # todo,checkme: waiting method instead of infinite loop?
         for line in sys.stdin:
             res = False
             try:
@@ -45,7 +44,6 @@ def loop(w):
                 retcode = EXCEPTION
 
             of.write(str(retcode))
-            # of.write(', outputof {}'.format(line[:-1]))
             of.write('\n')
             of.flush()
 
