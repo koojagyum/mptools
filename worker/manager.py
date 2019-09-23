@@ -1,4 +1,5 @@
 from time import sleep
+from time import time
 from tqdm import tqdm
 
 from .worker import Worker
@@ -29,6 +30,7 @@ class WorkManager:
 
         o = None
         run = True
+        start_time = time()
         while run:
             for w in workers:
                 if w.poll() or w.idle:
@@ -49,11 +51,19 @@ class WorkManager:
 
             if check_interval > 0:
                 sleep(check_interval)
+            if timeout > 0 and timeout < (time() - start_time):
+                orders = None
 
-        # print report
+        # Merge report
+        report = {}
         for w in workers:
-            print(w.orders)
+            for key, value in w.orders.items():
+                if not key in report:
+                    report[key] = []
 
+                report[key] += value
+
+        return report
 
     @property
     def module_name(self):
@@ -70,7 +80,7 @@ class WorkManager:
 
 def test():
     wm = WorkManager(module_name='dummy', num_workers=4)
-    wm.request(
+    report = wm.request(
         orders=[
             'hana',
             'dule',
@@ -83,8 +93,10 @@ def test():
             'ahope',
             'yeol',
             'yeolhana',
-        ]
+        ],
+        timeout=5.0
     )
+    print(report)
 
 
 if __name__ == '__main__':
