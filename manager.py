@@ -39,7 +39,6 @@ class WorkManager:
                     if orders:
                         if o is None:
                             o = orders.pop()
-                        # print('Request order:', o)
                         if w.request(o):
                             pbar.update(1)
                             o = None
