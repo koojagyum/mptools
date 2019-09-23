@@ -1,6 +1,6 @@
 import sys
 
-from . import loader
+from . import module
 from .constant import *
 
 
@@ -13,8 +13,7 @@ def collect_args():
     parser = argparse.ArgumentParser(description='')
     parser.add_argument(
         '--module_name',
-        choices=loader.module_table.keys(),
-        # default=list(loader.module_table.keys())[0],
+        choices=module.module_table.keys(),
         help='Set worker module\'s name.'
     )
 
@@ -55,7 +54,7 @@ def loop(w):
 
 def main():
     args = collect_args()
-    w = loader.load_worker_module(args.module_name)
+    w = module.load_worker_module(args.module_name)
     print('module_name:', args.module_name)
     log('module_name: {}'.format(args.module_name))
 
