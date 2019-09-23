@@ -1,28 +1,10 @@
 import sys
 
 from . import loader
+from .constant import *
 
 
 enable_log = False
-
-SUCCESS = 0
-FAIL = 1
-EXCEPTION = 2
-
-retcode_table = {
-    'SUCCESS': SUCCESS,
-    'FAIL': FAIL,
-    'EXCEPTION': EXCEPTION,
-}
-
-
-def get_retcode(output):
-    i = output[0] - ord('0')
-    return list(retcode_table.values())[i]
-
-
-def verbose_retcode(c):
-    return list(retcode_table.keys())[c]
 
 
 def collect_args():
@@ -30,9 +12,9 @@ def collect_args():
 
     parser = argparse.ArgumentParser(description='')
     parser.add_argument(
-        '--worker_name',
+        '--module_name',
         choices=loader.module_table.keys(),
-        default=list(loader.module_table.keys())[0],
+        # default=list(loader.module_table.keys())[0],
         help='Set worker module\'s name.'
     )
 
@@ -45,6 +27,7 @@ def log(msg):
     if enable_log:
         with open('./log.txt', 'a') as f:
             f.write(msg)
+            f.write('\n')
 
 
 def loop(w):
@@ -53,6 +36,7 @@ def loop(w):
 
     w.init()
     while True:
+        # todo,checkme: waiting method instead of infinite loop?
         for line in sys.stdin:
             res = False
             try:
@@ -62,20 +46,18 @@ def loop(w):
                 retcode = EXCEPTION
 
             of.write(str(retcode))
+            # of.write(', outputof {}'.format(line[:-1]))
             of.write('\n')
             of.flush()
-
-            # sys.stdout.write(str(retcode))
-            # sys.stdout.write('\n')
-            # sys.stdout.flush()
 
     of.close()
 
 
 def main():
     args = collect_args()
-    w = loader.load_worker_module(args.worker_name)
-    print('worker_name:', args.worker_name)
+    w = loader.load_worker_module(args.module_name)
+    print('module_name:', args.module_name)
+    log('module_name: {}'.format(args.module_name))
 
     loop(w)
 

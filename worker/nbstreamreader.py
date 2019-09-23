@@ -21,13 +21,7 @@ class NonBlockingStreamReader:
             '''
 
             while True:
-                # print('<?> reading...', stream.fileno())
-
                 line = stream.readline()
-                # with open(stream.fileno(), 'r') as f:
-                #     line = f.readline()
-
-                # print('<?> read:', line)
                 if line:
                     queue.put(line)
                 else:
@@ -40,8 +34,10 @@ class NonBlockingStreamReader:
 
     def readline(self, timeout = None):
         try:
-            return self._q.get(block = timeout is not None,
-                    timeout = timeout)
+            return self._q.get(
+                block = timeout is not None,
+                timeout = timeout
+            )
         except Empty:
             return None
 
