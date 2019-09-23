@@ -28,6 +28,8 @@ class WorkManager:
     def request(self, orders, timeout=0.0, check_interval=0.5):
         workers = self._setup_workers(self.num_workers)
 
+        orders_len = len(orders)
+        pbar = tqdm(total=orders_len)
         o = None
         run = True
         start_time = time()
@@ -37,8 +39,9 @@ class WorkManager:
                     if orders:
                         if o is None:
                             o = orders.pop()
-                        print('Request order:', o)
+                        # print('Request order:', o)
                         if w.request(o):
+                            pbar.update(1)
                             o = None
 
             # Escape condition
@@ -53,6 +56,8 @@ class WorkManager:
                 sleep(check_interval)
             if timeout > 0 and timeout < (time() - start_time):
                 orders = None
+
+        pbar.close()
 
         # Merge report
         report = {}
@@ -94,7 +99,7 @@ def test():
             'yeol',
             'yeolhana',
         ],
-        timeout=5.0
+        timeout=0.0
     )
     print(report)
 
