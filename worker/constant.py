@@ -3,9 +3,9 @@ FAIL = 1
 EXCEPTION = 2
 
 retcode_table = {
-    'SUCCESS': SUCCESS,
-    'FAIL': FAIL,
-    'EXCEPTION': EXCEPTION,
+    'processed': SUCCESS,
+    'failed': FAIL,
+    'exception': EXCEPTION,
 }
 
 
