@@ -7,35 +7,11 @@ def test_imresize():
     cmod = 'img'
 
     collector = load_collector(cmod)
-    orders = collector.collect(dirpath='/home/koodev/Pictures')
+    orders = collector.collect(dirpath='./pictures')
 
     module_args = [
         '--outdir',
-        '/home/koodev/mptools_test',
-        '-W', '320',
-        '-H', '320',
-    ]
-
-    wm = WorkManager(
-        module_name=wmod,
-        module_args=module_args,
-        num_workers=3
-    )
-    report = wm.request(orders=orders)
-
-    print(report)
-
-
-def test_fail():
-    wmod = 'imresize'
-    cmod = 'img'
-
-    collector = load_collector(cmod)
-    orders = collector.collect(dirpath='/home/koodev')
-
-    module_args = [
-        '--outdir',
-        '/home/koodev/mptools_fail',
+        './out',
         '-W', '320',
         '-H', '320',
     ]
@@ -55,7 +31,7 @@ def test():
     cmod = 'img'
 
     collector = load_collector(cmod)
-    orders = collector.collect(dirpath='/home/koodev/Pictures')
+    orders = collector.collect(dirpath='./pictures')
 
     wm = WorkManager(module_name=wmod, num_workers=4)
     report = wm.request(orders=orders)
