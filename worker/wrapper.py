@@ -38,7 +38,7 @@ def loop(w):
         for line in sys.stdin:
             res = False
             try:
-                res = w.process(line)
+                res = w.process(line.strip())
                 retcode = SUCCESS if (res == True) else FAIL
             except Exception as e:
                 retcode = EXCEPTION
