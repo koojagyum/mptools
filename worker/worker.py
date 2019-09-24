@@ -46,7 +46,7 @@ class Worker:
             self.cmd,
             stdin=PIPE,
             stdout=PIPE,
-            stderr=PIPE,
+            # stderr=PIPE,
             shell=False
         )
         self._reader = NBSR(self._p.stdout)
