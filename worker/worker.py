@@ -53,12 +53,12 @@ class Worker:
         self._of = open(self._p.stdin.fileno(), 'w')
 
     def _cleanup_p(self):
-        if self._p is not None:
-            self._p.terminate()
-            self._p = None
         if self._of is not None:
             self._of.close()
             self._of = None
+        if self._p is not None:
+            self._p.terminate()
+            self._p = None
 
     def check_alive(self):
         '''
