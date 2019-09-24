@@ -1,8 +1,10 @@
 from . import dummy
+from . import imresize
 
 
 module_table = {
     'dummy': dummy,
+    'imresize': imresize,
 }
 
 
