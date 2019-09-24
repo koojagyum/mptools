@@ -112,9 +112,9 @@ class Worker:
             return False
 
         retcode = constant.get_retcode(o)
-        if retcode == constant.SUCCESS:
+        if retcode == constant.PROCESSED:
             self.orders['processed'].append(self._order)
-        elif retcode == constant.FAIL:
+        elif retcode == constant.FAILED:
             self.orders['failed'].append(self._order)
         elif retcode == constant.EXCEPTION:
             self.orders['exception'].append(self._order)

@@ -28,7 +28,7 @@ def loop(w):
             res = False
             try:
                 res = w.process(line.strip())
-                retcode = SUCCESS if (res == True) else FAIL
+                retcode = PROCESSED if (res == True) else FAILED
             except:
                 retcode = EXCEPTION
 

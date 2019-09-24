@@ -1,10 +1,10 @@
-SUCCESS = 0
-FAIL = 1
+PROCESSED = 0
+FAILED = 1
 EXCEPTION = 2
 
 retcode_table = {
-    'processed': SUCCESS,
-    'failed': FAIL,
+    'processed': PROCESSED,
+    'failed': FAILED,
     'exception': EXCEPTION,
 }
 
