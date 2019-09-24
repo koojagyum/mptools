@@ -29,7 +29,7 @@ def loop(w):
             try:
                 res = w.process(line.strip())
                 retcode = SUCCESS if (res == True) else FAIL
-            except Exception as e:
+            except:
                 retcode = EXCEPTION
 
             of.write(str(retcode))
