@@ -1,10 +1,8 @@
 import sys
 
+from . import debug
 from . import module
 from .constant import *
-
-
-enable_log = False
 
 
 def collect_args():
@@ -18,15 +16,6 @@ def collect_args():
     )
 
     return parser.parse_known_args()[0]
-
-
-def log(msg):
-    global enable_log
-
-    if enable_log:
-        with open('./log.txt', 'a') as f:
-            f.write(msg)
-            f.write('\n')
 
 
 def loop(w):
@@ -53,8 +42,7 @@ def loop(w):
 def main():
     args = collect_args()
     w = module.load_worker_module(args.module_name)
-    print('module_name:', args.module_name)
-    log('module_name: {}'.format(args.module_name))
+    debug.log('module_name: {}'.format(args.module_name))
 
     loop(w)
 
